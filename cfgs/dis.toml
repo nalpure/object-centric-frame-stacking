@@ -1,0 +1,22 @@
+# config for disentanglement training on top of a pre-trained base model
+# on slipscape sequences with 4 objects
+
+[slot]
+sa_iterations = 3
+num_slots     = 5
+
+[train]
+batch_size        = 64
+epochs            = 100
+log_rate          = 1
+ckpt_rate         = 20
+recon_loss        = true
+dis_loss          = true
+recon_w           = 100
+dis_w             = 10
+match_type        = "direct"
+filter_background = true
+
+[train.opt]
+lr = 2e-4
+wd = 1e-2

@@ -1,0 +1,63 @@
+# template showing all possible tables and entries fo training
+name = "template"    # default name to save run under
+type = "slotmachine" # architecture type, one of [slotmachine]
+
+[model]
+obs_height   = 64    # input image height
+obs_width    = 64    # input image width
+feature_size = 64    # size of feature vec for slot attention
+slot_size    = 64    # size of each slot
+mlp_size     = 64    # width of slot MLP
+latent_size  = 5     # size of true latent
+seq_length   = 4     # number of sequential images in each sample
+action_size  = 0     # dimensionality of action between images (unused currently)
+dynamics     = false # reconstruct future frames instead of input frames
+
+[slot]
+sa_iterations = 3 # number of slot attention rounds
+num_slots     = 5 # number of slots used
+
+[train]
+batch_size        = 64       # batch size
+epochs            = 1        # number of training epochs
+log_rate          = 1        # write metrics every N epochs
+ckpt_rate         = 1        # write checkpoints every N epochs
+recon_loss        = true     # enable reconstruction loss
+dis_loss          = true     # enable disentanglement loss
+recon_w           = 100      # weighting of reconstruction loss
+dis_w             = 10       # weighting of disentanglement loss
+match_type        = "direct" # how to match slots for disentanglement, one of [full, direct]
+filter_background = true     # remove slot with lowest variance from matching
+sliding_window    = false    # use sliding window (for if sequences longer than seq_length)
+
+[train.opt]
+lr = 2e-4 # learning rate
+wd = 1e-2 # weight decay
+
+[eval]
+batch_size        = 64       # batch size
+latent_ld         = true     # evaluate linear disentanglement using a linear regression from latent
+slot_ld           = true     # evaluate linear disentanglement using a linear regression from slot
+mcc               = true     # evaluate mean correlation coefficient using Pearson correlation
+recon_loss        = true     # evaluate reconstruction loss
+dis_loss          = true     # evaluate disentanglement loss
+match_type        = "direct" # how to match slots for disentanglement, one of [full, direct]
+filter_background = true     # remove slot with lowest variance from matching
+
+[gnn]
+node_size     = 128    # node MLP hidden width
+edge_size     = 128    # edge MLP hidden width
+context_size  = 128    # context MLP hidden width
+node_depth    = 2      # node MLP hidden layer count
+edge_depth    = 2      # edge MLP hidden layer count
+context_depth = 2      # context MLP hidden layer count
+aggregation   = "mean" # edge aggregation function, one of [max, mean]
+
+[gnn_train]
+batch_size = 256 # batch size
+epochs     = 50  # training epochs
+ckpt_rate  = 10  # write checkpoints every N epochs
+
+[gnn_train.opt]
+lr = 2e-5 # learning rate
+wd = 1e-3 # weight decay

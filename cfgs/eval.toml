@@ -1,0 +1,15 @@
+# config for post-training evaluation on slipscape sequences with 4 objects
+
+[slot]
+sa_iterations = 3
+num_slots     = 5
+
+[eval]
+batch_size        = 64
+latent_ld         = true
+slot_ld           = true
+mcc               = true
+recon_loss        = true
+dis_loss          = true
+match_type        = "direct"
+filter_background = true
