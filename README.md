@@ -1,4 +1,4 @@
-# SlotMachine
+# SlotMachine (Object-centric frame stacking)
 Learning causal representations from temporal sequences of images.
 
 ### Setup
