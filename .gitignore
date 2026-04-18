@@ -164,11 +164,6 @@ cython_debug/
 # generated requirements
 requirements.txt
 
-# rendered outputs
-*.png
-*.mp4
-*.gif
-
 # checkpoints
 *.eqx
 /ckpts

@@ -1,3 +1,5 @@
+![Architecture overview](architecture.png)
+
 # SlotMachine (Object-centric frame stacking)
 Learning causal representations from temporal sequences of images.
 
@@ -59,21 +61,3 @@ uv run train.py eval.toml --name EVAL_NAME --data PATH_TO_DATASET --base BASE_RU
 ```
 
 To evaluate MCC, the dataset must be generated with ground truth masks, and the model must have trained disentanglement heads.
-
-### Using Leo5
-Running training on the Leo5 cluster is not faster than the stronger GPU machines, but may allow for more throughput in the form of parallel trainings (depending on the cluster load).
-
-It is recommended to keep datasets, code, and model checkpoints on the cluster scratch partition, and backup files locally as needed.
-After logging in to the cluster via SSH, the scratch space can be found at `\scratch\c7031418\`.
-
-In order to run jobs on the cluster, they must be submitted via slurm. 
-A great general overview on using slurm by the university can be found [here](https://www.uibk.ac.at/zid/systeme/hpc-systeme/common/tutorials/slurm-tutorial.html).
-For concrete examples of training jobs for this codebase, see [slurm/pretrain.slurm](slurm/pretrain.slurm) and [slurm/dis_job.slurm](slurm/dis_job.slurm).
-In order to e.g. submit a pretraining job, run `sbatch --job-name=NAME slurm/pretraining.slurm` from the root of this repository.
-To check on the status of submitted jobs, run `squ`.
-Depending on how busy the cluster is, jobs may be scheduled to run immediately, or may take several days to start running.
-
-There are some additional things to keep in mind:
-1) The individual GPUs in the cluster are weaker than the ones in the GPU machines. There are however 2 GPUs per node available. The codebase is set up in a way to automatically split batches evenly between GPUs. It is thus recommended to train with twice the batch size than what would normally be used on a GPU machine.
-2) In order for the scheduler to effectively schedule jobs, these example scripts define time limits for the jobs, via the `--time` parameter. If the job exceeds this time limit, it is automatically killed. If making changes to the training that may result in longer training times, these limits may have to be adjusted accordingly.
-3) Setting your personal mail address in the job submit script will allow you to receive updates on jobs starting, finishing, or failing.
