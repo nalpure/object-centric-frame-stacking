@@ -1,6 +1,8 @@
-![Architecture overview](architecture.png)
-
 # SlotMachine (Object-centric frame stacking)
+<p align="center">
+    <img src="architecture.svg" alt="Architecture overview" width="300">
+</p>
+
 Learning causal representations from temporal sequences of images.
 
 ### Setup
